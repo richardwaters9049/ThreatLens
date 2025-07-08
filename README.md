@@ -96,3 +96,11 @@ git clone https://github.com/YOUR_USERNAME/threatlens.git
 cd threatlens
 docker-compose up --build
 ```
+
+## Access
+
+- Frontend: <http://localhost:3000>
+- Backend: <http://localhost:8000/api>
+- Admin Login: <admin@example.com> / changeme123
+
+---
