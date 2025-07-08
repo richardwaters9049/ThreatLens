@@ -1,4 +1,4 @@
-# 🛡️ ThreatLens Project Overview (UK English)
+# 🛡️ ThreatLens Project Overview
 
 ## 📌 Project Objective
 
