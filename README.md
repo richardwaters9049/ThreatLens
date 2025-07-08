@@ -87,7 +87,7 @@ This project aims to:
 
 ---
 
-## 🧪 How to Use
+## 🏃🏼 Make It Run
 
 ### ▶️ Quickstart (Dev Mode)
 
