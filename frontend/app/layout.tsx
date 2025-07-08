@@ -1,4 +1,3 @@
-// 📄 /app/layout.tsx
 // Client-aware layout to hide Sidebar + Header on login page only
 
 "use client";

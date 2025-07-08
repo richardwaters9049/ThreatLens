@@ -1,4 +1,3 @@
-// 📄 /components/Sidebar.tsx
 // Responsive, animated, collapsible Sidebar using Framer Motion
 // Default state is collapsed. Includes nav + logout functionality + motion styling
 
