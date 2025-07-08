@@ -1,6 +1,8 @@
 # 🛡️ ThreatLens
 
-### _AI-Powered Penetration Testing & Threat Intelligence Platform_
+### AI-Powered Penetration Testing & Threat Intelligence Platform
+
+### _"Security is never a product, it's a continuous process. Let's build that process smarter."_ 🔐
 
 ---
 
@@ -97,10 +99,26 @@ cd threatlens
 docker-compose up --build
 ```
 
-## Access
+### Access
 
 - Frontend: <http://localhost:3000>
 - Backend: <http://localhost:8000/api>
 - Admin Login: <admin@example.com> / changeme123
+
+---
+
+## 🧱 Folder Structure (High-Level)
+
+```bash
+threatlens/
+├── frontend/              # React + Tailwind frontend
+├── backend/               # Flask or FastAPI backend
+├── pentest-tools/         # Custom attack scripts (Python)
+├── ml-model/              # AI training + inference
+├── tests/                 # Unit + integration tests
+├── .github/workflows/     # CI/CD config
+├── docker-compose.yml
+└── README.md
+```
 
 ---
