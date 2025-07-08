@@ -23,7 +23,7 @@ export const Sidebar = () => {
             initial={{ width: 64 }}
             animate={{ width: collapsed ? 64 : 260 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="bg-zinc-900 border-r border-zinc-800 h-screen p-4 flex flex-col justify-between shadow-lg"
+            className="bg-zinc-900 border-r border-zinc-800 h-auto min-h-screen p-4 flex flex-col justify-between shadow-lg"
         >
             <div>
                 <Button
