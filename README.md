@@ -2,7 +2,7 @@
 
 ### AI-Powered Penetration Testing & Threat Intelligence Platform
 
-### _"Security is never a product, it's a continuous process. Let's build that process smarter."_ 🔐
+_"Security is never a product, it's a continuous process. Let's build that process smarter."_ 🔐
 
 ---
 
