@@ -1,44 +1,64 @@
 'use client';
 
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
+import { useState } from 'react';
+import { Textarea } from '@/components/ui/textarea';
 
 export default function ScanPage() {
-    const [scans, setScans] = useState([
-        { id: 1, type: "SQL Injection", status: "Completed", date: "2025-07-08" },
-        { id: 2, type: "XSS Test", status: "Running", date: "2025-07-09" },
-    ]);
+    const [output, setOutput] = useState<string>('');
+
+    const handleScan = () => {
+        setOutput('Launching scan... (simulate output here)\n[+] Target located\n[+] Attempting SQL Injection...\n[!] Vulnerability found!');
+    };
 
     return (
-        <main className="px-6 md:px-12 py-10 space-y-10 max-w-6xl mx-auto">
-            <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-            >
-                <h1 className="text-4xl font-semibold mb-2">👁️ Launch Penetration Tests</h1>
-                <p className="text-gray-400 max-w-2xl">
-                    Simulate real-world attacks in a sandboxed environment. Choose your test type and launch controlled scans against target systems.
-                </p>
-            </motion.div>
+        <div className="space-y-6">
+            <h1 className="text-3xl font-bold">👁️ Launch a Penetration Test</h1>
 
-            <div className="space-y-4">
-                <Button className="bg-blue-600 hover:bg-blue-700 transition">+ New Scan</Button>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {scans.map((scan) => (
-                        <Card key={scan.id}>
-                            <CardContent className="pt-6">
-                                <CardTitle>{scan.type}</CardTitle>
-                                <p className="text-sm text-muted-foreground mt-1">
-                                    Status: {scan.status} • {scan.date}
-                                </p>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </div>
-            </div>
-        </main>
+            <Card>
+                <CardHeader>
+                    <CardTitle>Configure Scan</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <div>
+                        <Label htmlFor="target">Target URL or IP</Label>
+                        <Input id="target" placeholder="e.g., https://example.com or 192.168.1.1" />
+                    </div>
+
+                    <div>
+                        <Label htmlFor="type">Test Type</Label>
+                        <Select>
+                            <SelectTrigger>
+                                <SelectValue placeholder="Select test type" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="sql">SQL Injection</SelectItem>
+                                <SelectItem value="xss">Cross-Site Scripting (XSS)</SelectItem>
+                                <SelectItem value="brute">Brute Force Login</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    <Button onClick={handleScan}>Start Scan</Button>
+                </CardContent>
+            </Card>
+
+            <Card>
+                <CardHeader>
+                    <CardTitle>Console Output</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <Textarea
+                        className="font-mono bg-black text-green-400 min-h-[200px]"
+                        value={output}
+                        readOnly
+                    />
+                </CardContent>
+            </Card>
+        </div>
     );
 }
