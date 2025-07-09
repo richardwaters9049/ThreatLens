@@ -1,86 +1,60 @@
 'use client';
 
-import { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
-type Threat = {
-    id: number;
-    name: string;
-    severity: 'Low' | 'Medium' | 'High' | 'Critical';
-    source: string;
-};
+type Threat = { id: number; name: string; severity: 'Low' | 'Medium' | 'High' | 'Critical'; source: string };
 
 export default function ThreatsPage() {
     const [logs, setLogs] = useState('');
     const [threats, setThreats] = useState<Threat[]>([]);
+    const container = { hidden: {}, visible: { transition: { staggerChildren: 0.15 } } };
+    const item = { hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } };
 
     const handleAnalyse = () => {
-        // Placeholder simulated AI threat detection
-        setThreats([
-            { id: 1, name: 'Suspicious Login Attempt', severity: 'High', source: 'auth.log' },
-            { id: 2, name: 'Malicious Script', severity: 'Critical', source: 'webserver.log' },
-        ]);
+        setThreats(Array.from({ length: 6 }, (_, i) => ({
+            id: i + 1,
+            name: ['Suspicious login', 'SQL anomaly', 'Malicious script'][i % 3],
+            severity: (['Low', 'Medium', 'High', 'Critical'] as const)[i % 4],
+            source: ['auth.log', 'web.log', 'app.log'][i % 3],
+        })));
     };
 
     return (
-        <div className="space-y-6">
-            <h1 className="text-3xl font-bold">🚨 AI Threat Detection</h1>
+        <motion.main initial="hidden" animate="visible" variants={container} className="font-inter space-y-8 px-6 py-10 max-w-6xl mx-auto">
+            <motion.h1 variants={item} className="text-4xl font-bold">
+                🚨 AI Threat Detection
+            </motion.h1>
 
-            <Card>
-                <CardHeader>
-                    <CardTitle>Upload Log or Paste System Output</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <Label htmlFor="log">Paste logs below:</Label>
-                    <Textarea
-                        id="log"
-                        placeholder="e.g., Apache logs, syslog, IDS alerts..."
-                        className="min-h-[150px]"
-                        value={logs}
-                        onChange={(e) => setLogs(e.target.value)}
-                    />
-                    <Button onClick={handleAnalyse}>Analyse Logs</Button>
-                </CardContent>
-            </Card>
+            <motion.div variants={item} className="glass-bg p-6 rounded-xl shadow-lg space-y-4">
+                <Label htmlFor="log">Paste system or security logs</Label>
+                <Textarea id="log" className="min-h-[150px]" value={logs} onChange={e => setLogs(e.target.value)} />
+                <Button className="bg-gradient-to-r from-emerald-400 to-teal-500 hover:from-emerald-500 hover:to-teal-600 transition shadow-md" onClick={handleAnalyse}>
+                    Analyse Logs
+                </Button>
+            </motion.div>
 
-            <Card>
-                <CardHeader>
-                    <CardTitle>Threat Classification</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    {threats.length === 0 ? (
-                        <p className="text-muted-foreground">No threats detected yet.</p>
-                    ) : (
-                        threats.map((threat) => (
-                            <div
-                                key={threat.id}
-                                className="border p-4 rounded-md shadow flex justify-between items-center"
-                            >
-                                <div>
-                                    <p className="font-medium">{threat.name}</p>
-                                    <p className="text-sm text-muted-foreground">Source: {threat.source}</p>
-                                </div>
-                                <Badge
-                                    variant={
-                                        threat.severity === 'Critical'
-                                            ? 'destructive'
-                                            : threat.severity === 'High'
-                                                ? 'secondary'
-                                                : 'outline'
-                                    }
-                                >
-                                    {threat.severity}
-                                </Badge>
+            <motion.div variants={item} className="space-y-4">
+                {!threats.length
+                    ? <p>No threats detected yet.</p>
+                    : threats.map(shown => (
+                        <motion.div key={shown.id} variants={item} whileHover={{ scale: 1.02 }} className="glass-bg p-4 rounded-lg flex justify-between items-center shadow-lg">
+                            <div>
+                                <p className="font-medium">{shown.name}</p>
+                                <p className="text-sm">Source: {shown.source}</p>
                             </div>
-                        ))
-                    )}
-                </CardContent>
-            </Card>
-        </div>
+                            <Badge variant={shown.severity === 'Critical' ? 'destructive' : shown.severity === 'High' ? 'secondary' : 'outline'}>
+                                {shown.severity}
+                            </Badge>
+                        </motion.div>
+                    ))}
+            </motion.div>
+        </motion.main>
     );
 }
